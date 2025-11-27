@@ -1,7 +1,14 @@
+FROM gradle:7.6.1-jdk17 AS build
+
+WORKDIR /app
+COPY . .
+RUN gradle clean build -x test
+
 FROM eclipse-temurin:17-jre-alpine
+
+WORKDIR /app
+COPY --from=build /app/build/libs/open_trivia-0.0.1-SNAPSHOT.jar /app/open_trivia.jar
 
 EXPOSE 8080
 
-ADD /build/libs/open_trivia-0.0.1-SNAPSHOT.jar open_trivia-0.0.1-SNAPSHOT.jar
-
-ENTRYPOINT ["java","-jar","/open_trivia-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/open_trivia.jar"]
