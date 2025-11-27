@@ -2,7 +2,7 @@ FROM gradle:7.6.1-jdk17 AS build
 
 WORKDIR /app
 COPY . .
-RUN gradle clean build -x test
+RUN ./gradlew clean build -x test
 
 FROM eclipse-temurin:17-jre-alpine
 
