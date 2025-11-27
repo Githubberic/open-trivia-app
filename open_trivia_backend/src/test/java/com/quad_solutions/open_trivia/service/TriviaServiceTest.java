@@ -15,13 +15,16 @@ public class TriviaServiceTest {
 
     private TriviaService triviaService;
 
+    private UUID questionId1;
+    private UUID questionId2;
+
     @BeforeEach
     void setUp() {
         triviaService = new TriviaService();
 
         //Voeg test data toe aan correctAnswers map
-        UUID questionId1 = UUID.randomUUID();
-        UUID questionId2 = UUID.randomUUID();
+        questionId1 = UUID.randomUUID();
+        questionId2 = UUID.randomUUID();
 
         triviaService.getCorrectAnswers().put(questionId1, "Correct antwoord 1");
         triviaService.getCorrectAnswers().put(questionId2, "Correct antwoord 2");
@@ -32,7 +35,7 @@ public class TriviaServiceTest {
 
         //Maak nieuwe antwoordenlijst aan met questionId1 en het antwoord van gebruiker
         List<AnswerDTO> answers = List.of(
-                new AnswerDTO(triviaService.getCorrectAnswers().keySet().stream().findFirst().get(),
+                new AnswerDTO(questionId1,
                         "Correct antwoord 1")
         );
 
@@ -45,7 +48,7 @@ public class TriviaServiceTest {
     @Test
     void testCheckAnswersWithWrongAnswers() {
         List<AnswerDTO> answers = List.of(
-                new AnswerDTO(triviaService.getCorrectAnswers().keySet().stream().findFirst().get(),
+                new AnswerDTO(questionId1,
                         "Fout antwoord")
         );
 
