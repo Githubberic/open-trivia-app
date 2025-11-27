@@ -1,14 +1,7 @@
-# Use official Java runtime
-FROM eclipse-temurin:17-jdk
+FROM openjdk:17-alpine
 
-# Set working directory
-WORKDIR /app
-
-# Copy Gradle build output into container
-COPY build/libs/*.jar app.jar
-
-# Expose the port Render will use
 EXPOSE 8080
 
-# Start Spring Boot
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ADD /build/libs/open_trivia-0.0.1-SNAPSHOT.jar open_trivia-0.0.1-SNAPSHOT.jar
+
+ENTRYPOINT ["java","-jar","/open_trivia-0.0.1-SNAPSHOT.jar"]
